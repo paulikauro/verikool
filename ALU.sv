@@ -11,6 +11,7 @@ module ALU(
     // 9 bit result to capture carry out
     logic [8:0] result;
     assign out = result[7:0];
+    assign zero = out == 0;
 
     always_comb begin
         case (op)
@@ -34,6 +35,4 @@ module ALU(
             end
         endcase
     end
-
-    assign zero = out == 0;
 endmodule

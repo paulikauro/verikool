@@ -5,7 +5,7 @@ module PC (
     input clk,
     input rst
 );
-    logic [7:0] value;
+    reg [7:0] value;
     assign instructionPointer = value;
 
     always_ff @(posedge clk or negedge rst) begin

@@ -8,7 +8,7 @@ module RegisterFile (
     input writeEnable,
     input clk
 );
-    logic [7:0] buffer [3:0];
+    reg [7:0] buffer [3:0];
 
     assign aOut = buffer[aAddress];
     assign bOut = buffer[bAddress];

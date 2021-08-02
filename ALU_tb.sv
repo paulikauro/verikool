@@ -2,7 +2,7 @@
 module ALU_tb;
     logic [7:0] a, b, out;
     logic [1:0] op;
-    logic zero, carry;
+    wire zero, carry;
     ALU alu(
         .a(a),
         .b(b),

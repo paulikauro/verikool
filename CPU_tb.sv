@@ -1,17 +1,17 @@
 `timescale 1ps/1ps
 module CPU_tb;
-    logic [7:0] programMem [256];
-    logic [7:0] instPtr, inst;
-    assign inst = programMem[instPtr];
+    reg [7:0] programMem [256];
+    wire [7:0] instPtr;
+    wire [7:0] inst = programMem[instPtr];
 
-    logic clk;
+    reg clk;
     initial clk = 0;
     always #10 clk = ~clk;
 
-    logic rst;
+    reg rst;
 
-    logic [7:0] memAddress, memIn, memOut;
-    logic memWrEnable;
+    wire [7:0] memAddress, memIn, memOut;
+    wire memWrEnable;
 
     CPU cpu(
         .instAddress(instPtr),
@@ -45,7 +45,7 @@ module CPU_tb;
         $display("reset complete");
     end
 
-    logic [7:0] ctr;
+    reg [7:0] ctr;
     initial ctr = 0;
 
     always @(posedge clk) begin : simulatePeripherals

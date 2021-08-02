@@ -5,7 +5,7 @@ module Memory(
     input writeEnable,
     input clk
 );
-    logic [7:0] memory[256];
+    reg [7:0] memory[256];
     assign out = memory[address];
 
     always_ff @(posedge clk) begin

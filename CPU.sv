@@ -1,4 +1,3 @@
-// or datapath?
 module CPU(
     output [7:0] instAddress,
     input [7:0] instruction,
@@ -8,12 +7,12 @@ module CPU(
     input clk,
     input rst
 );
-    logic [7:0] busA, busB;
+    wire [7:0] busA, busB;
     logic [1:0] aluOp;
     // from ALU
-    logic zero, carry;
+    wire zero, carry;
     // actual flag registers
-    logic zeroFlag, carryFlag;
+    reg zeroFlag, carryFlag;
     // control signals
     logic updateFlags;
     logic regWriteEnable;
@@ -24,10 +23,10 @@ module CPU(
     logic implicitRegAddress3;
 
     // opcode is in the least significant bits
-    wire logic [3:0] op = (instruction[0] == 0) ? LIM : instruction[3:0];
-    wire logic [7:0] immediate = sign_extend(instruction[7:1]);
-    wire logic [1:0] source = instruction[5:4];
-    wire logic [1:0] destination = instruction[7:6];
+    wire [3:0] op = (instruction[0] == 0) ? LIM : instruction[3:0];
+    wire [7:0] immediate = signExtend(instruction[7:1]);
+    wire [1:0] source = instruction[5:4];
+    wire [1:0] destination = instruction[7:6];
 
     typedef enum logic [2:0] { SRC_MOV, SRC_ALU, SRC_PC, SRC_MEM, SRC_IMM } regWriteSourceType;
     typedef enum logic [1:0] { COND_LT, COND_GT, COND_EQ, COND_ALWAYS } branchConditionType;
@@ -86,12 +85,12 @@ module CPU(
     end
 
     // A = source, pointer
-    wire logic [1:0] regAddrA = source;
+    wire [1:0] regAddrA = source;
     // B = destination, condition
-    wire logic [1:0] regAddrB = destination;
-    wire logic [1:0] regAddrW = implicitRegAddress3 ? 3 : destination;
-    logic [7:0] aluOut;
-    logic [7:0] instructionPointer;
+    wire [1:0] regAddrB = destination;
+    wire [1:0] regAddrW = implicitRegAddress3 ? 3 : destination;
+    wire [7:0] aluOut;
+    wire [7:0] instructionPointer;
     logic [7:0] busOut;
     assign instAddress = instructionPointer;
 
@@ -146,9 +145,9 @@ module CPU(
 
 endmodule
 
-function logic [7:0] sign_extend(input [6:0] number);
+function logic [7:0] signExtend(input [6:0] number);
     begin
-        sign_extend = {number[6], number};
+        signExtend = {number[6], number};
     end
 endfunction
 
